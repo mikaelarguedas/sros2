@@ -210,7 +210,7 @@ def create_governance_file(path, domain_id):
         raise RuntimeError(str(e))
 
     with open(path, 'wb') as f:
-        f.write(etree.tostring(governance_xml, pretty_print=True))
+        f.write(etree.tostring(governance_xml, pretty_print=True, encoding='UTF-8'))
 
 
 def create_signed_governance_file(signed_gov_path, gov_path, ca_cert_path, ca_key_path):
@@ -358,7 +358,7 @@ def create_permission_file(path, domain_id, policy_element):
         raise RuntimeError(str(e))
 
     with open(path, 'wb') as f:
-        f.write(etree.tostring(permissions_xml, pretty_print=True))
+        f.write(etree.tostring(permissions_xml, pretty_print=True, encoding='UTF-8'))
 
 
 def get_policy(name, policy_file_path):

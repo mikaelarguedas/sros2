@@ -81,4 +81,4 @@ def dump_policy(policy, stream):
         policy_xsd.assertValid(policy)
     except etree.DocumentInvalid as e:
         raise RuntimeError(str(e))
-    stream.write(etree.tostring(policy, pretty_print=True).decode())
+    stream.write(etree.tostring(policy, pretty_print=True, encoding='UTF-8').decode())
