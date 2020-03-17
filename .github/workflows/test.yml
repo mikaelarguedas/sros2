@@ -19,3 +19,9 @@ jobs:
         package-name: |
           sros2
           sros2_cmake
+    - name: Upload Logs
+      uses: actions/upload-artifact@v1
+      with:
+        name: colcon-logs
+        path: ros_ws/log
+      if: always()
