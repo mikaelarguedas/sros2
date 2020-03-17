@@ -11,12 +11,9 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        # os: [ubuntu-latest, macos-latest]
         os: [ubuntu-latest]
     steps:
     - uses: ros-tooling/setup-ros@0.0.13
-    # MacOS needs rosdep keys but even with them CI fails
-    # - run: sudo sh -c 'echo "yaml https://raw.githubusercontent.com/mikaelarguedas/rosdistro/some_osx_keys/rosdep/osx-homebrew.yaml osx\nyaml https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/base.yaml\nyaml https://raw.githubusercontent.com/mikaelarguedas/rosdistro/some_osx_keys/rosdep/python.yaml\nyaml https://raw.githubusercontent.com/ros/rosdistro/master/rosdep/ruby.yaml" > /etc/ros/rosdep/sources.list.d/20-default.list'
     - uses: ros-tooling/action-ros-ci@0.0.13
       with:
         package-name: |
