@@ -21,11 +21,13 @@ jobs:
           sros2_cmake
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1.0.6
+      if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
       with:
         file: ros_ws/src/sros2/sros2/coverage.xml
         flags: unittests
         name: sros2-coverage
         fail_ci_if_error: true
+        yml: .codecov.yml
     - name: Upload Logs
       uses: actions/upload-artifact@v1
       if: failure()
