@@ -47,6 +47,18 @@ def test_create_keystore(keystore_dir):
         assert os.path.isfile(os.path.join(keystore_dir, expected_file))
 
 
+def test_create_keystore_twice(keystore_dir):
+    # Create the keystore
+    assert cli.main(argv=['security', 'create_keystore', keystore_dir]) == 0
+    expected_files = (
+        'ca.cert.pem', 'ca.key.pem', 'governance.p7s', 'governance.xml'
+    )
+    assert len(os.listdir(keystore_dir)) == len(expected_files)
+
+    for expected_file in expected_files:
+        assert os.path.isfile(os.path.join(keystore_dir, expected_file))
+
+
 def test_ca_cert(keystore_dir):
     with open(os.path.join(keystore_dir, 'ca.cert.pem'), 'rb') as f:
         cert = x509.load_pem_x509_certificate(f.read(), cryptography_backend())
