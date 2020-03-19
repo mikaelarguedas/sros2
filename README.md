@@ -1,5 +1,7 @@
 # Context
 
+![SROS2 CI](https://github.com/ros2/sros2/workflows/SROS2%20CI/badge.svg)
+
 This package provides the tools and instructions to use ROS2 on top of DDS-Security.
 The security feature is tested across platforms (Linux, macOS, and Windows) as well as across different languages (C++ and Python).
 
