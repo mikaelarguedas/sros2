@@ -1,44 +1,75 @@
-# Run linters automatically on pull requests.
-name: Lint sros2 repo
+name: SROS2 CI
 on:
   pull_request:
   push:
+  schedule:
+    # Run daily
+    - cron:  '0 12 * * *'
 
 jobs:
+  build_and_test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+    steps:
+    - uses: ros-tooling/setup-ros@0.0.13
+    - uses: ros-tooling/action-ros-ci@0.0.13
+      with:
+        package-name: |
+          sros2
+          sros2_cmake
+    - name: Upload Logs
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: colcon-logs
+        path: ros_ws/log
+
+  # Linter jobs
   ament_copyright:
-    name: ament_copyright
+    name: ament_${{ matrix.linter_name }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        linter_name: [copyright]
     steps:
     - uses: actions/checkout@v1
     - uses: ros-tooling/setup-ros@0.0.13
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
-        linter: copyright
+        linter: ${{ matrix.linter_name }}
         package-name: |
           sros2
           sros2_cmake
 
   ament_lint_cmake:
-    name: ament_lint_cmake
+    name: ament_${{ matrix.linter_name }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        linter_name: [lint-cmake]
     steps:
     - uses: actions/checkout@v1
     - uses: ros-tooling/setup-ros@0.0.13
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
-        linter: copyright
+        linter: ${{ matrix.linter_name }}
         package-name: |
           sros2_cmake
 
   ament_xmllint:
-    name: ament_xmllint
+    name: ament_${{ matrix.linter_name }}
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        linter_name: [xmllint]
     steps:
     - uses: actions/checkout@v1
     - uses: ros-tooling/setup-ros@0.0.13
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
-        linter: xmllint
+        linter: ${{ matrix.linter_name }}
         package-name: |
           sros2_cmake
         # Comment out sros2 for now because xmllint doesnt support https
@@ -46,17 +77,17 @@ jobs:
         # sros2
 
   ament_lint_python: # Linters applicable to Python packages
-    name: ament_${{ matrix.linter }}
+    name: ament_${{ matrix.linter_name }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-          linter: [flake8, pep257, mypy]
+          linter_name: [flake8, pep257, mypy]
     steps:
     - uses: actions/checkout@v1
     - uses: ros-tooling/setup-ros@0.0.13
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
-        linter: ${{ matrix.linter }}
+        linter: ${{ matrix.linter_name }}
         package-name: |
           sros2
