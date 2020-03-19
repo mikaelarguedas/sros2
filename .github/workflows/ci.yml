@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-18.04]
     steps:
     - uses: ros-tooling/setup-ros@0.0.13
     - uses: ros-tooling/action-ros-ci@0.0.13
@@ -29,7 +29,7 @@ jobs:
   # Linter jobs
   ament_copyright:
     name: ament_${{ matrix.linter_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         linter_name: [copyright]
@@ -43,24 +43,25 @@ jobs:
           sros2
           sros2_cmake
 
-  ament_lint_cmake:
-    name: ament_${{ matrix.linter_name }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        linter_name: [lint-cmake]
-    steps:
-    - uses: actions/checkout@v1
-    - uses: ros-tooling/setup-ros@0.0.13
-    - uses: ros-tooling/action-ros-lint@0.0.5
-      with:
-        linter: ${{ matrix.linter_name }}
-        package-name: |
-          sros2_cmake
+  # action-ros-lint does not support multi work linters like lint_cmake
+  # ament_lint_cmake:
+  #   name: ament_${{ matrix.linter_name }}
+  #   runs-on: ubuntu-18.04
+  #   strategy:
+  #     matrix:
+  #       linter_name: [lint-cmake]
+  #   steps:
+  #   - uses: actions/checkout@v1
+  #   - uses: ros-tooling/setup-ros@0.0.13
+  #   - uses: ros-tooling/action-ros-lint@0.0.5
+  #     with:
+  #       linter: ${{ matrix.linter_name }}
+  #       package-name: |
+  #         sros2_cmake
 
   ament_xmllint:
     name: ament_${{ matrix.linter_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         linter_name: [xmllint]
@@ -78,7 +79,7 @@ jobs:
 
   ament_lint_python: # Linters applicable to Python packages
     name: ament_${{ matrix.linter_name }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       fail-fast: false
       matrix:
