@@ -13,8 +13,8 @@ jobs:
       matrix:
         os: [ubuntu-18.04]
     steps:
-    - uses: ros-tooling/setup-ros@0.0.13
-    - uses: ros-tooling/action-ros-ci@0.0.13
+    - uses: ros-tooling/setup-ros@0.0.15
+    - uses: ros-tooling/action-ros-ci@0.0.14
       with:
         package-name: |
           sros2
@@ -35,7 +35,7 @@ jobs:
         linter_name: [copyright]
     steps:
     - uses: actions/checkout@v1
-    - uses: ros-tooling/setup-ros@0.0.13
+    - uses: ros-tooling/setup-ros@0.0.15
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
         linter: ${{ matrix.linter_name }}
@@ -52,7 +52,7 @@ jobs:
   #       linter_name: [lint-cmake]
   #   steps:
   #   - uses: actions/checkout@v1
-  #   - uses: ros-tooling/setup-ros@0.0.13
+  #   - uses: ros-tooling/setup-ros@0.0.15
   #   - uses: ros-tooling/action-ros-lint@0.0.5
   #     with:
   #       linter: ${{ matrix.linter_name }}
@@ -67,7 +67,7 @@ jobs:
         linter_name: [xmllint]
     steps:
     - uses: actions/checkout@v1
-    - uses: ros-tooling/setup-ros@0.0.13
+    - uses: ros-tooling/setup-ros@0.0.15
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
         linter: ${{ matrix.linter_name }}
@@ -86,7 +86,7 @@ jobs:
           linter_name: [flake8, pep257, mypy]
     steps:
     - uses: actions/checkout@v1
-    - uses: ros-tooling/setup-ros@0.0.13
+    - uses: ros-tooling/setup-ros@0.0.15
     - uses: ros-tooling/action-ros-lint@0.0.5
       with:
         linter: ${{ matrix.linter_name }}
