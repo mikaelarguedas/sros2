@@ -10,12 +10,16 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         env:
         - {JOB_TYPE: nightly}
+        - {JOB_TYPE: nightly, COLCON_EXTRA_CMAKE_ARGS: "-DSECURITY=ON", MIXINS_BUILD: "release", COLCON_EXTRA_PYTEST_ARGS: "--cov-report=term", COLCON_TEST_EXTRA_ARGS: "--pytest-with-coverage"}
+        # - {JOB_TYPE: eloquent}
     steps:
     - uses: actions/checkout@v1
-    - run: |
+    - name: build and test
+      run: |
             cd ${GITHUB_WORKSPACE}
             git clone --quiet --depth 1 https://github.com/mikaelarguedas/ros2ci.git -b actions_support .ros2ci
             .ros2ci/top_level_ci.bash $JOB_TYPE
