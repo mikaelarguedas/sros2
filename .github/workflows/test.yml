@@ -33,9 +33,9 @@ jobs:
     #     name: sros2-coverage
     #     fail_ci_if_error: true
     #     yml: .codecov.yml
-    # - name: Upload Logs
-    #   uses: actions/upload-artifact@v1
-    #   if: failure()
-    #   with:
-    #     name: colcon-logs
-    #     path: ros_ws/log
+    - name: Upload Logs
+      uses: actions/upload-artifact@v1
+      if: failure()
+      with:
+        name: colcon-logs
+        path: ros_ws/log
