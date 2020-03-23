@@ -43,21 +43,20 @@ jobs:
           sros2
           sros2_cmake
 
-  # action-ros-lint does not support multi work linters like lint_cmake
-  # ament_lint_cmake:
-  #   name: ament_${{ matrix.linter_name }}
-  #   runs-on: ubuntu-18.04
-  #   strategy:
-  #     matrix:
-  #       linter_name: [lint-cmake]
-  #   steps:
-  #   - uses: actions/checkout@v1
-  #   - uses: ros-tooling/setup-ros@0.0.15
-  #   - uses: ros-tooling/action-ros-lint@0.0.5
-  #     with:
-  #       linter: ${{ matrix.linter_name }}
-  #       package-name: |
-  #         sros2_cmake
+  ament_lint_cmake:
+    name: ament_${{ matrix.linter_name }}
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        linter_name: [lint_cmake]
+    steps:
+    - uses: actions/checkout@v1
+    - uses: ros-tooling/setup-ros@0.0.15
+    - uses: mikaelarguedas/action-ros-lint@support_underscores
+      with:
+        linter: ${{ matrix.linter_name }}
+        package-name: |
+          sros2_cmake
 
   ament_xmllint:
     name: ament_${{ matrix.linter_name }}
