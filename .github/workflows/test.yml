@@ -13,9 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         env:
-        # - {JOB_TYPE: nightly}
         - {JOB_TYPE: nightly, MIXIN_BUILD: "release", COVERAGE: "codecov"}
-        # - {JOB_TYPE: nightly, MIXIN_BUILD: "debug", COLCON_EXTRA_PYTEST_ARGS: "--cov-report=term", COLCON_TEST_EXTRA_ARGS: "--pytest-with-coverage"}
+        - {JOB_TYPE: nightly, MIXIN_BUILD: "debug"}
         # - {JOB_TYPE: eloquent}
     steps:
     - uses: actions/checkout@v1
