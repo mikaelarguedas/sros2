@@ -38,4 +38,4 @@ jobs:
       if: failure()
       with:
         name: colcon-logs
-        path: log
+        path: workspace/log
