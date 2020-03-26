@@ -12,4 +12,4 @@ matrix:
     #   script: .ros2ci/travis.bash $JOB_TYPE
     - env: JOB_TYPE=nightly COVERAGE=codecov
       script:
-      - .ros2ci/top_level_ci.bash $JOB_TYPE
+      - .ros2ci/travis.bash $JOB_TYPE
