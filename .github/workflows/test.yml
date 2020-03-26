@@ -39,16 +39,15 @@ jobs:
     runs-on: ubuntu-latest
     container: osrf/ros2:nightly
     steps:
+    - uses: actions/checkout@v1
     - run: |
         apt-get -qq update
         apt-get -qq upgrade -y
-        apt-get -qq install -y curl libasio-dev libtinyxml2-dev
-    - uses: ros-tooling/action-ros-ci@master
-      with:
-        package-name: |
-          sros2
-          sros2_cmake
-          test_security
+        rosdep update
+        rosdep install -y --from-paths . --ignore-src --rosdistro foxy
+    - run: colcon build
+    - run: colcon test
+    - run: colcon test-result
     - name: Upload Logs
       uses: actions/upload-artifact@v1
       if: failure()
