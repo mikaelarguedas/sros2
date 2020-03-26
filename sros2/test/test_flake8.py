@@ -21,4 +21,3 @@ import pytest
 def test_flake8():
     rc = main(argv=[])
     assert rc == 0, 'Found errors'
-    assert False
