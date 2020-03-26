@@ -24,7 +24,7 @@ jobs:
       uses: codecov/codecov-action@v1.0.6
       # if: github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/master')
       with:
-        file: ros_ws/src/sros2/sros2/coverage.xml
+        file: ros_ws/build/sros2/coverage.xml
         flags: unittests
         name: sros2-coverage
         fail_ci_if_error: true
@@ -42,7 +42,7 @@ jobs:
     - run: |
         apt-get -qq update
         apt-get -qq upgrade -y
-        apt-get -qq install -y curl
+        apt-get -qq install -y curl libasio-dev libtinyxml2-dev
     - uses: ros-tooling/action-ros-ci@master
       with:
         package-name: |
