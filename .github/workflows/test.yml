@@ -1,5 +1,7 @@
 name: SROS2 CI
 on:
+  repository_dispatch:
+    types: manual-trigger
   pull_request:
   push:
   schedule:
