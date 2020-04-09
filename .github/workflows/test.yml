@@ -54,9 +54,9 @@ jobs:
     - name: Build workspace
       run: . /opt/ros/$ROS_DISTRO/setup.sh && colcon build
     - name: Test workspace
-      run: . /opt/ros/$ROS_DISTRO/setup.sh && colcon test --executor sequential --event-handlers console_direct+
-    - name: Check test results
-      run: colcon test-result
+      run: |
+        . /opt/ros/$ROS_DISTRO/setup.sh && colcon test --executor sequential --event-handlers console_direct+
+        colcon test-result
     - name: Upload Logs
       uses: actions/upload-artifact@v1
       if: failure()
