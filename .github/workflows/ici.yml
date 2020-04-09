@@ -5,6 +5,7 @@ on: [push, pull_request]
 jobs:
   industrial_ci:
     strategy:
+      fail-fast: false
       matrix:
         env:
           - {DOCKER_IMAGE: "osrf/ros2:nightly", UPSTREAM_WORKSPACE: additional_repos.repos}
