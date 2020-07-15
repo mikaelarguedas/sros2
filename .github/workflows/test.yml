@@ -18,6 +18,7 @@ jobs:
         apt-get -qq update
         apt-get -qq upgrade -y
         apt-get -qq install -y curl libasio-dev libtinyxml2-dev
+        apt-get -qq install -y python3-colcon-coveragepy-result
     - uses: ros-tooling/action-ros-ci@master
       with:
         package-name: |
